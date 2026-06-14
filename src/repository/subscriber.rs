@@ -14,4 +14,9 @@ impl SubscriberRepository {
         let mut subscribers = SUBSCRIBERS.lock().unwrap();
         subscribers.push(subscriber);
     }
+
+    pub fn list_all() -> Vec<Subscriber> {
+        let subscribers = SUBSCRIBERS.lock().unwrap();
+        subscribers.clone()
+    }
 }
