@@ -1,10 +1,11 @@
-use std::sync::Mutex;
-
-use crate::model::subscriber::Subscriber;
+use dashmap::DashMap;
 use lazy_static::lazy_static;
 
+use crate::model::subscriber::Subscriber;
+
 lazy_static! {
-    pub static ref SUBSCRIBERS: Mutex<Vec<Subscriber>> = Mutex::new(Vec::new());
+    pub static ref SUBSCRIBERS: DashMap<String, DashMap<String, Subscriber>> =
+        DashMap::new();
 }
 
 pub struct SubscriberRepository;
@@ -22,7 +23,7 @@ impl SubscriberRepository {
             .unwrap()
             .insert(subscriber_value.url.clone(), subscriber_value);
 
-        return subscriber;
+        subscriber
     }
 
     pub fn list_all(product_type: &str) -> Vec<Subscriber> {
@@ -30,12 +31,12 @@ impl SubscriberRepository {
             SUBSCRIBERS.insert(String::from(product_type), DashMap::new());
         }
 
-        return SUBSCRIBERS
+        SUBSCRIBERS
             .get(product_type)
             .unwrap()
             .iter()
             .map(|f| f.value().clone())
-            .collect();
+            .collect()
     }
 
     pub fn delete(product_type: &str, url: &str) -> Option<Subscriber> {
@@ -52,6 +53,6 @@ impl SubscriberRepository {
             return Some(result.unwrap().1);
         }
 
-        return None;
+        None
     }
 }
