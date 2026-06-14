@@ -92,5 +92,18 @@ Since Program IDs and Subscriber URLs are unique identifiers, DashMap is more su
 DashMap and Singleton solve different problems. The Singleton pattern ensures that only one instance of an object exists throughout the application, while DashMap provides a thread-safe data structure that can be safely accessed and modified by multiple threads concurrently. Even if we implement Singleton, concurrent access problems would still exist unless the underlying data structure is thread-safe. Therefore, Singleton cannot replace DashMap. In this application, DashMap remains necessary because it provides safe concurrent access to subscriber data while maintaining good performance. A Singleton could be used to manage the global instance, but it would still require a thread-safe container such as DashMap internally.
 
 #### Reflection Publisher-2
+# Reflection Publisher-2
+
+## 1
+
+Separating Service and Repository from Model follows the Single Responsibility Principle. The Model represents data structures, the Repository handles data persistence and retrieval, and the Service contains business logic. This separation makes the application easier to maintain, test, and extend because each layer has a clearly defined responsibility.
+
+## 2
+
+If all responsibilities were placed inside the Model, the Model would become tightly coupled to both business logic and data access operations. As more interactions are introduced between Program, Subscriber, and Notification, the Model would become increasingly complex and difficult to maintain. Separating concerns reduces coupling and keeps each component focused on a specific task.
+
+## 3
+
+Postman is a useful tool for testing HTTP APIs because it allows developers to send requests and inspect responses without building a frontend application. It simplifies testing different endpoints, request parameters, headers, and request bodies. It is also useful for saving collections of requests, automating API tests, and documenting APIs. These features make it valuable for both this project and future software engineering projects.
 
 #### Reflection Publisher-3
