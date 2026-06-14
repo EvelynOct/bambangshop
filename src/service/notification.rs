@@ -49,7 +49,7 @@ impl NotificationService {
             ),
             subscriber_name: String::from(""),
             status: String::from(status),
-        }; //notify
+        };
 
         let subscribers: Vec<Subscriber> =
             SubscriberRepository::list_all(product_type);
