@@ -107,3 +107,33 @@ If all responsibilities were placed inside the Model, the Model would become tig
 Postman is a useful tool for testing HTTP APIs because it allows developers to send requests and inspect responses without building a frontend application. It simplifies testing different endpoints, request parameters, headers, and request bodies. It is also useful for saving collections of requests, automating API tests, and documenting APIs. These features make it valuable for both this project and future software engineering projects.
 
 #### Reflection Publisher-3
+# Reflection Publisher-3
+
+## 1. Observer Pattern has two variations: Push model and Pull model. In this tutorial case, which variation of Observer Pattern do we use?
+
+This tutorial uses the **Push model** of the Observer pattern. Whenever a product is created, published, or deleted, the publisher immediately sends a notification containing the relevant information to all subscribers. The subscribers do not need to request additional information because the publisher actively pushes the notification payload to them through HTTP requests.
+
+## 2. What are the advantages and disadvantages of using the other variation of Observer Pattern for this tutorial case?
+
+If we used the **Pull model** instead, subscribers would only receive a notification that a change had occurred and would then need to request the details from the publisher.
+
+Advantages:
+
+* The initial notification payload would be smaller because only minimal information needs to be sent.
+* Subscribers can decide exactly what information they want to retrieve.
+* The publisher does not need to know every piece of data that each subscriber requires.
+
+Disadvantages:
+
+* Additional HTTP requests are required from subscribers to the publisher.
+* The overall communication process becomes more complex.
+* More network traffic may be generated because each subscriber must fetch details separately.
+* The subscriber becomes more tightly coupled to the publisher's API because it needs to know how to retrieve the data.
+
+For this project, the Push model is more suitable because notifications are relatively small and subscribers can immediately receive all required information.
+
+## 3. Explain what will happen to the program if we decide to not use multi-threading in the notification process.
+
+Without multi-threading, notifications would be sent sequentially to subscribers. If one subscriber is slow to respond, unreachable, or experiences network delays, the publisher would have to wait before continuing to notify the next subscriber. As the number of subscribers grows, this would significantly increase the response time of product operations such as create, publish, and delete.
+
+By using multi-threading, notification requests can be sent concurrently. This improves performance, reduces waiting time, and prevents a single slow subscriber from blocking notifications to others. As a result, the application becomes more responsive and scalable.
