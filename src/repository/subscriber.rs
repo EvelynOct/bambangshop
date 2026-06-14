@@ -10,5 +10,8 @@ lazy_static! {
 pub struct SubscriberRepository;
 
 impl SubscriberRepository {
-
+    pub fn add(subscriber: Subscriber) {
+        let mut subscribers = SUBSCRIBERS.lock().unwrap();
+        subscribers.push(subscriber);
+    }
 }
